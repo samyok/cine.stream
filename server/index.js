@@ -72,6 +72,13 @@ io.on('connection', (socket) => {
             rooms[roomid].usernames[socket.id] = data;
             rooms[roomid].usernames[socket.id].avatar = COLORS[Object.keys(rooms[roomid].usernames).length % 8];
         }
+        setTimeout( () => {
+            if(!rooms[roomid].currentStatus.src){
+                rooms[roomid].currentStatus.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
+                rooms[roomid].currentStatus.paused = false;
+                sync(roomid);
+            }
+        }, 5000)
         userToRooms[socket.id] = roomid
         console.log(data);
 
@@ -120,7 +127,7 @@ io.on('connection', (socket) => {
 });
 
 let currentStatus = {
-    src: 'file_example_MP4_1920_18MG.mp4',
+    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     currentTime: 5,
     type: "file",
     timestamp: Date.now(),

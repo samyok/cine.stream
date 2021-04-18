@@ -46,7 +46,7 @@ export default function LandingPage({setState, loading}) {
             <br/>
             <button
                 className={'small'}
-                disabled={loading}
+                disabled={true}
                 onClick={() => {
                     animate({func: setAnimating}).then(() =>
                         setState({
