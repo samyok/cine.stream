@@ -230,7 +230,7 @@ export default function World({ws, sid, state}) {
                 </div>
             </section>
 
-            <pre style={{color: 'white', position: 'fixed', top: 0, backgroundColor: 'black'}}>
+            <pre style={{display: 'none', color: 'white', position: 'fixed', top: 0, backgroundColor: 'black'}}>
                rot: {roomYRotation}deg <br/>
                dx: {posX}px dz: {posZ}px <br/>
                dr: {dr}deg offset: {offset}px <br/>
@@ -256,7 +256,11 @@ export default function World({ws, sid, state}) {
  * @param dr
  * @returns {JSX.Element}
  */
-function face({width = 1196, height = 596, styles = {}, inside, orientation, dz, dx, dy, dr = 0}) {
+function face({
+    width = 1196, height = 596, styles = {}, inside, orientation, dz, dx, dy, dr = 0
+}
+)
+{
     let transform = {
         N: `rotateY(${dr}deg) translateZ(${dx}px) translateX(${-dz}px) translateY(${dy}px)`,
         E: `rotateY(${-90 + dr}deg) translateZ(${dz}px) translateX(${dx}px) translateY(${dy}px)`,
@@ -283,7 +287,12 @@ function face({width = 1196, height = 596, styles = {}, inside, orientation, dz,
     </figure>
 }
 
-function debugFaces({posX, posZ, dy}) {
+function debugFaces(
+{
+    posX, posZ, dy
+}
+)
+{
     let size = 50;
     return <>{face({
         orientation: 'N',
@@ -328,7 +337,12 @@ function debugFaces({posX, posZ, dy}) {
     </>
 }
 
-function box({posX, posZ, dy, x = 200, y = 0, z = -300, size = 100}) {
+function box(
+{
+    posX, posZ, dy, x = 200, y = 0, z = -300, size = 100
+}
+)
+{
     return <>
         {face({
             orientation: 'N',
@@ -373,7 +387,12 @@ function box({posX, posZ, dy, x = 200, y = 0, z = -300, size = 100}) {
     </>
 }
 
-function rotatePlane({x, z, r}) {
+function rotatePlane(
+{
+    x, z, r
+}
+)
+{
     // math here https://www.geogebra.org/geometry/yxzwugkv
     let deg = rad(r);
     let coordX = Math.abs(x) * Math.cos(deg) + Math.abs(z) * Math.sin(deg);
@@ -383,7 +402,12 @@ function rotatePlane({x, z, r}) {
     return [dist * Math.sin(rad(angleEAA)), dist * Math.cos(rad(angleEAA))];
 }
 
-function avatar({color = 'darkblue', posX, posZ, dy, x = 200, y = 0, z = -300, size = 51, dr = 0, sid}) {
+function avatar(
+{
+    color = 'darkblue', posX, posZ, dy, x = 200, y = 0, z = -300, size = 51, dr = 0, sid
+}
+)
+{
     // let [mvX, mvZ] = rotatePlane({x: posX + x, z: posZ + z, r: dr});
     let dz = (posZ + z)// - mvZ// + mvX;
     let dx = (posX + x)// + mvX// + mvZ;
@@ -435,7 +459,12 @@ function avatar({color = 'darkblue', posX, posZ, dy, x = 200, y = 0, z = -300, s
     </>
 }
 
-function RenderAvatars({sid, avatars, posX, posZ, dy}) {
+function RenderAvatars(
+{
+    sid, avatars, posX, posZ, dy
+}
+)
+{
     return Object.keys(avatars).map(a => {
         let av = avatars[a];
         if (a !== sid)
