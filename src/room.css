@@ -1,0 +1,28 @@
+#container {
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    perspective: 600px;
+}
+
+
+#room {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-origin: 50% 80% 600px;
+    transform-style: preserve-3d;
+}
+
+#room figure {
+    margin: 0;
+    display: block;
+    position: absolute;
+    /*border: 2px solid green;*/
+    font-family: "Helvetica", serif;
+    text-align: center;
+}
+

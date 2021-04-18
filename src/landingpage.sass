@@ -1,0 +1,107 @@
+.centerbox-container
+  display: flex
+  width: 100%
+  height: 100%
+  //align-items: start
+  align-items: center
+  justify-content: center
+
+
+.centerbox
+  margin: 20px
+  padding: 20px 50px
+  font-family: "Varela Round", sans-serif
+  color: white
+  border: 1px solid rgba(0, 0, 0, .9)
+  border-radius: 20px
+  text-align: center
+  background: rgba(0, 0, 0, 0.8)
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+h1, h3
+  font-family: 'Varela Round', sans-serif
+
+h2, p
+  font-family: 'Ubuntu Mono', monospace
+  font-weight: 700
+
+p
+  margin: 50px
+
+
+@mixin no-select
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  -webkit-touch-callout: none
+  -ms-text-size-adjust: none
+  -webkit-text-size-adjust: none
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+img
+  margin: 5px
+button
+  @include no-select()
+  outline: white
+  border-radius: 10px
+  background: transparent
+  outline: none
+  border: 2px solid white
+  color: white
+  font-family: 'Varela Round', sans-serif
+  padding: 20px 40px
+  font-size: 20px
+  margin: 10px
+  transition-duration: 0.2s
+  &.icon
+    padding: 7px 5px 0 5px
+    border: 2px solid white
+    margin: 5px 2.5px
+
+  &.small
+    font-size: 13px
+    padding: 5px 20px
+    border: none
+    margin: 0
+
+  &:hover
+    background: rgba(255, 255, 255, 1)
+    color: black
+    cursor: pointer
+
+input[type=text]
+  outline: white
+  border-radius: 5px
+  background: transparent
+  outline: none
+  border: 2px solid rgba(255,255,255,0.1)
+  width: 100%
+  border-bottom: 2px solid rgba(255,255,255,0.5)
+  color: white
+  font-family: 'Varela Round', sans-serif
+  padding: 10px 20px
+  font-size: 15px
+  margin: 10px 0 30px 0
+  transition-duration: 0.2s
+
+  &:focus
+    border: 2px solid rgba(255,255,255,0.5)
+    border-bottom: 2px solid white
+
+  &.small
+    font-size: 13px
+    padding: 5px 20px
+    border: none
+    margin: 0
+
+.copyright
+  position: fixed
+  bottom: 0
+  text-align: center
+  color: rgba(255, 255, 255, 0.8)
+  font-family: "Ubuntu Mono", monospace
+  font-size: 13px
+  padding: 10px

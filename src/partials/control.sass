@@ -1,0 +1,25 @@
+.controlContainer
+  z-index: 999
+  position: fixed
+  bottom: 10px
+  right: 10px
+  width: 500px
+  background: black
+  color: white
+
+.controlbox
+  display: flex
+  align-items: center
+  .scrubber
+    font-family: 'Ubuntu Mono', monospace
+    margin: 10px
+
+
+input[type=range]
+  flex-grow: 1
+
+.material-icons-two-tone
+  filter: invert(1)
+
+button:hover .material-icons-two-tone
+  filter: none

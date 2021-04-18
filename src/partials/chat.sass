@@ -1,0 +1,49 @@
+.chatContainer
+  z-index: 999
+  position: fixed
+  bottom: 10px
+  left: 10px
+  width: 600px
+  max-width: 50%
+
+.chatbox
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+  align-items: flex-start
+  padding-left: 10px
+  max-height: 300px
+  overflow-y: hidden
+
+.chatContainer input
+  width: 100%
+  padding: 10px 20px
+  border: 2px solid rgba(255,255,255,0.3)
+  margin: 0
+
+.chatMessage
+  background: white
+  border-radius: 10px
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  flex-shrink: 1
+  padding: 3px 5px 3px 40px
+  position: relative
+  margin: 17px 0
+  font-family: "Varela Round", sans-serif
+  .author
+    font-family: "Ubuntu Mono", monospace
+  img
+    width: 50px
+    height: 50px
+    border-radius: 25px
+    position: absolute
+    left: -15px
+
+  *
+    margin: 0 5px
+  p
+    font-family: "Varela Round", sans-serif
+
+

@@ -2,13 +2,21 @@
   "name": "cine.stream",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nanoid": "^3.1.22",
+    "node-sass": "^5.0.0",
+    "random-avatar-generator": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
