@@ -1,3 +1,4 @@
+console.log('starting');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -41,7 +42,7 @@ io.on('connection', (socket) => {
             return socket.emit('closedroom');
         }
 
-        rooms[roomid].avatars[socket.id] = {...data, color: rooms[roomid].usernames[socket.id].avatar};
+        rooms[roomid].avatars[socket.id] = {...data, color: rooms[roomid].usernames[socket.id]?.avatar || 'undefined'};
         socket.to(roomid).emit('avatars', rooms[roomid].avatars)
     })
 
@@ -57,6 +58,7 @@ io.on('connection', (socket) => {
         io.emit('chat', obj)
     })
     socket.on('auth', async (data) => {
+        console.log('auth', data);
         sync(roomid);
         console.log(data);
         if (data.newRoom) {
@@ -72,13 +74,6 @@ io.on('connection', (socket) => {
             rooms[roomid].usernames[socket.id] = data;
             rooms[roomid].usernames[socket.id].avatar = COLORS[Object.keys(rooms[roomid].usernames).length % 8];
         }
-        setTimeout( () => {
-            if(!rooms[roomid].currentStatus.src){
-                rooms[roomid].currentStatus.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
-                rooms[roomid].currentStatus.paused = false;
-                sync(roomid);
-            }
-        }, 5000)
         userToRooms[socket.id] = roomid
         console.log(data);
 
@@ -143,8 +138,10 @@ function sync(roomid) {
         rooms[roomid].currentStatus.currentTime += (now - rooms[roomid].currentStatus.timestamp) / 1000;
         rooms[roomid].currentStatus.timestamp = now;
     }
-    console.log(rooms[roomid].currentStatus);
-    io.to(roomid).emit('status', rooms[roomid].currentStatus)
+    // console.log(rooms[roomid].currentStatus);
+    console.log('to:', roomid, rooms[roomid].currentStatus);
+    io.to(roomid).emit('status', rooms[roomid].currentStatus);
+
 }
 
 async function getData(username) {
