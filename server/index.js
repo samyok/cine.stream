@@ -9,11 +9,12 @@ const io = require('socket.io')(server, {
         methods: ["GET", "POST"]
     }
 });
-app.use(express.static(__dirname + "/../build/"))
+app.use(express.static(__dirname + "/../build/"));
 
 app.get('/ws', (req, res) => res.json({
     endpoint: 'https://cine.stream' //'http://192.168.0.186:5000'
 }))
+app.get('/:param', (req, res) => res.sendFile(__dirname + '/index.html'));
 
 server.listen(5000, () => {
     console.log('listening on *:5000');
