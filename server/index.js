@@ -4,6 +4,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const {nanoid} = require('nanoid');
+const serverURL = process.env.SERVER_URL || 'http://localhost:4444'
 const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:3000", "http://192.168.0.186:3000"],
@@ -13,12 +14,12 @@ const io = require('socket.io')(server, {
 app.use(express.static(__dirname + "/../build/"));
 
 app.get('/ws', (req, res) => res.json({
-    endpoint: 'https://cine.stream' //'http://192.168.0.186:5000'
+    endpoint: serverURL, //// 'https://cine.stream' //'http://192.168.0.186:5000'
 }))
 app.get('/:param', (req, res) => res.sendFile(__dirname + '/index.html'));
 
-server.listen(5000, () => {
-    console.log('listening on *:5000');
+server.listen(4444, () => {
+    console.log('listening on *:4444');
 });
 
 let avatars = {};

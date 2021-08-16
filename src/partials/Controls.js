@@ -13,7 +13,11 @@ export default function Control({ws, videoRef, updateWS}) {
             if (data.paused) videoRef.current.pause();
             else videoRef.current.play();
         });
+    }, [updateWS, videoRef, ws])
+
+    useEffect(() => {
         setTimeout( () => {
+            console.log(videoRef.current.src);
             if(!videoRef.current.src) {
                 videoRef.current.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
                 videoRef.current.play()
@@ -21,7 +25,7 @@ export default function Control({ws, videoRef, updateWS}) {
             }
             updateWS();
         }, 5000)
-    }, [updateWS, videoRef, ws])
+    }, [updateWS, videoRef])
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();
