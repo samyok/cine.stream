@@ -8,6 +8,7 @@
 # testing
 /coverage
 
+server/.env
 
 # misc
 .DS_Store
