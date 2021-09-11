@@ -1,4 +1,7 @@
 console.log('starting');
+
+require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -11,12 +14,23 @@ const io = require('socket.io')(server, {
         methods: ["GET", "POST"]
     }
 });
-app.use(express.static(__dirname + "/../build/"));
+const {EmoteFetcher, EmoteParser} = require('@mkody/twitch-emoticons');
+
+const fetcher = new EmoteFetcher();
+const parser = new EmoteParser(fetcher, {
+    type: 'html',
+    match: / (.+) /g
+})
+
+const buildDir = path.join(__dirname, "/../build/");
+console.log({buildDir});
+
+app.use(express.static(buildDir));
 
 app.get('/ws', (req, res) => res.json({
     endpoint: serverURL, //// 'https://cine.stream' //'http://192.168.0.186:5000'
 }))
-app.get('/:param', (req, res) => res.sendFile(__dirname + '/index.html'));
+app.get('/:param', (req, res) => res.sendFile(path.join(buildDir, '/index.html')));
 
 server.listen(4444, () => {
     console.log('listening on *:4444');
@@ -57,6 +71,19 @@ io.on('connection', (socket) => {
             username: rooms[roomid].usernames[socket.id].username,
         };
         io.emit('chat', obj)
+
+        console.log({fetcher})
+        fetcher.fetchTwitchEmotes(null).then(() => {
+            // const kappa = fetcher.emotes.get('Kappa').toLink();
+            // console.log(kappa);
+        //     https://static-cdn.jtvnw.net/emoticons/v1/25/1.0
+        //
+            const text = 'Hello :CoolCat:!';
+            const parsed = parser.parse(text);
+            console.log(parsed);
+            // Hello ![CoolCat](https://static-cdn.jtvnw.net/emoticons/v1/58127/1.0 "CoolCat")!
+        });
+
     })
     socket.on('auth', async (data) => {
         console.log('auth', data);

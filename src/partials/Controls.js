@@ -7,7 +7,7 @@ export default function Control({ws, videoRef, updateWS}) {
 
     useEffect(() => {
         ws.on('status', (data) => {
-            console.log(data);
+            // console.log(data);
             if (videoRef.current) videoRef.current.src = data.src;
             if (videoRef.current) videoRef.current.currentTime = data.currentTime;
             if (data.paused) videoRef.current.pause();
@@ -15,17 +15,17 @@ export default function Control({ws, videoRef, updateWS}) {
         });
     }, [updateWS, videoRef, ws])
 
-    useEffect(() => {
-        setTimeout( () => {
-            console.log(videoRef.current.src);
-            if(!videoRef.current.src) {
-                videoRef.current.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
-                videoRef.current.play()
-                setPlaying(true);
-            }
-            updateWS();
-        }, 5000)
-    }, [updateWS, videoRef])
+    // useEffect(() => {
+    //     setTimeout( () => {
+    //         console.log(videoRef.current.src);
+    //         if(!videoRef.current.src) {
+    //             videoRef.current.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
+    //             videoRef.current.play()
+    //             setPlaying(true);
+    //         }
+    //         updateWS();
+    //     }, 5000)
+    // }, [updateWS, videoRef])
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();
@@ -89,8 +89,13 @@ export default function Control({ws, videoRef, updateWS}) {
                 }}
             />
             <button className="icon" onClick={() => {
-                videoRef.current.src = prompt('New video URL');
+                let newSrc =prompt('New video URL');
+                if(!newSrc) newSrc = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
+                // console.log({newSrc});
+                videoRef.current.src = newSrc;
                 videoRef.current.currentTime = 0;
+                videoRef.current.play();
+                setPlaying(true);
                 updateWS();
             }}>
                 <span className="material-icons-two-tone">

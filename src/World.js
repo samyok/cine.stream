@@ -33,6 +33,8 @@ export default function World({ws, sid, state}) {
 
     const [king, setKing] = useState(false);
 
+    const [twitchEmojis, setTwitchEmojis] = useState([]);
+
     // set interval but react hook
     // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
     function useInterval(callback, delay) {
@@ -145,35 +147,35 @@ export default function World({ws, sid, state}) {
     // helper functions: server update + on interaction code
     const keyFuncs = code => {
         switch (code) {
-            case "ArrowRight":
-                setDr(pv => pv + 1);
-                break;
-            case "ArrowLeft":
-                setDr(pv => pv - 1);
-                break;
-            case "KeyW":
+            // case "ArrowRight":
+            //     setDr(pv => pv + 1);
+            //     break;
+            // case "ArrowLeft":
+            //     setDr(pv => pv - 1);
+            //     break;
+            case "ArrowUp":
                 setPosX(pv => pv + Math.cos(rad(roomYRotationRef.current)) * maxSpeed);
                 setPosZ(pv => pv + Math.sin(rad(roomYRotationRef.current)) * maxSpeed)
                 break;
-            case "KeyS":
+            case "ArrowDown":
                 setPosX(pv => pv + Math.cos(rad(roomYRotationRef.current + 180)) * maxSpeed);
                 setPosZ(pv => pv + Math.sin(rad(roomYRotationRef.current + 180)) * maxSpeed)
                 break;
-            case "KeyD":
+            case "ArrowRight":
                 setPosX(pv => pv + Math.cos(rad(roomYRotationRef.current + 90)) * maxSpeed);
                 setPosZ(pv => pv + Math.sin(rad(roomYRotationRef.current + 90)) * maxSpeed)
                 break;
-            case "KeyA":
+            case "ArrowLeft":
                 setPosX(pv => pv + Math.cos(rad(roomYRotationRef.current - 90)) * maxSpeed);
                 setPosZ(pv => pv + Math.sin(rad(roomYRotationRef.current - 90)) * maxSpeed)
                 break;
-            case "Space":
-                setOffset(-(window.innerWidth) / 2)
-                setPosZ(offset + 1196 / 2);
-                setPosX(0);
-                setRoomYRotation(0);
-                setDr(0);
-                break;
+            // case "Space":
+            //     setOffset(-(window.innerWidth) / 2)
+            //     setPosZ(offset + 1196 / 2);
+            //     setPosX(0);
+            //     setRoomYRotation(0);
+            //     setDr(0);
+            //     break;
             default:
                 console.log(code);
                 break;
@@ -204,9 +206,13 @@ export default function World({ws, sid, state}) {
         setInterval(update, 50)
     }, [])
 
+    useEffect(() => {
+        fetch("./twitchemojis.json").then(r => r.json()).then(r => setTwitchEmojis(r))
+    }, [])
+
     return (
         <>
-            <Chat ws={ws} chats={chats}/>
+            <Chat ws={ws} chats={chats} emojis={twitchEmojis}/>
             {state.data.king && <Controls ws={ws} videoRef={videoRef} updateWS={updateWS}/>}
             <section id="container">
                 <div id="room" style={{

@@ -4,10 +4,12 @@
   "private": true,
   "proxy": "http://localhost:4444",
   "dependencies": {
+    "@mkody/twitch-emoticons": "^2.3.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "nanoid": "^3.1.22",
     "node-sass": "^5.0.0",
