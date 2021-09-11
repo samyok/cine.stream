@@ -27,6 +27,8 @@ console.log({buildDir});
 
 app.use(express.static(buildDir));
 
+app.use(express.static(path.join(__dirname, "/../videos/")));
+
 app.get('/ws', (req, res) => res.json({
     endpoint: serverURL, //// 'https://cine.stream' //'http://192.168.0.186:5000'
 }))
